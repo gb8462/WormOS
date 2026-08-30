@@ -1,0 +1,22 @@
+WormOS
+│
+├── Desktop
+│   ├── Hyprland
+│   │   └── hyprland.lua
+│   ├── Hyprpaper
+│   │   └── hyprpaper.conf
+│   ├── Waybar
+│   ├── Wofi
+│   └── Wlogout
+│
+├── Applications
+│   ├── Brave
+│   ├── Dolphin
+│   └── Alacritty
+│
+└── Utilities
+    ├── grim
+    ├── slurp
+    ├── wl-clipboard
+    ├── brightnessctl
+    └── playerctl

@@ -1,0 +1,53 @@
+* {
+  background-color: transparent;
+}
+
+#entry {
+   border-radius: 5px;
+   padding: 5px;
+   color: #e4e7f5;
+   margin: 0px 4px 0px 4px;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+#entry:selected {
+   background-color: rgb(106, 148, 204);
+   color: #323f83;
+   padding: 5px;
+   outline-style: none;
+}
+
+#window {
+   color: #323f83;
+   animation-name: fadeIn;
+   animation-duration: 0.4s;
+   background-color: rgb(5, 27, 58);
+   font-size: 14;
+}
+
+#input {
+   border: none;
+   color: #a9b8ff;
+   background-color: rgb(14, 60, 119);
+   border-radius: 10px;
+   margin: 5px 5px 5px 5px;
+   padding: 8px;
+}
+
+#inner-box {
+   background-color: rgb(14, 60, 119);
+   border-radius: 5px;
+   margin: 5px;
+   padding-top: 15px;
+   padding-bottom: 15px;
+   opacity: 0.8;
+}
+
+#outer-box {
+   border-radius: 10px;
+   padding: 5px;
+}
