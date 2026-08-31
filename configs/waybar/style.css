@@ -1,44 +1,98 @@
+/* ============================================================
+ * W O R M O S
+ * WAYBAR THEME
+ * Monochrome Cyber / Terminal
+ * ============================================================ */
+
 * {
     border: none;
-    font-family: Font Awesome, Roboto, Arial, sans-serif;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
     font-size: 13px;
-    color: #a399ff;
-    border-radius: 20px;
-}
-/*
-window {
-	font-weight: bold;
-}
-*/
-window#waybar {
-    background: rgba(0, 0, 0 ,0);
-}
-/*-----module groups----*/
-.modules-right {
-    background-color: rgb(17, 14, 38);
-    margin: 2px 10px 0 0;
-}
-.modules-center {
-    background-color: rgb(17, 14, 38);
-    margin: 2px 0 0 0;
-}
-.modules-left {
-    background-color: rgb(17, 14, 38);
-    margin: 2px 0 0 5px;
-}
-/*-----modules indv----*/
-#workspaces button {
-    padding: 1px 5px;
-    background-color:rgb(17, 14, 38);
-}
-#workspaces button:hover {
-    box-shadow: inherit;
-    background-color: rgb(17, 14, 38);
+    color: #d8d8d8;
 }
 
-#workspaces button.focused {
-    background-color: rgb(17, 14, 38);
+/* ------------------------------------------------------------
+ * WAYBAR
+ * ------------------------------------------------------------ */
+
+window#waybar {
+    background: transparent;
 }
+
+/* ------------------------------------------------------------
+ * MODULE GROUPS
+ * ------------------------------------------------------------ */
+
+.modules-left,
+.modules-center,
+.modules-right {
+    background: rgba(8, 8, 8, 0.94);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+
+    margin-top: 4px;
+}
+
+.modules-left {
+    margin-left: 6px;
+    padding: 2px 5px;
+}
+
+.modules-center {
+    padding: 2px 8px;
+}
+
+.modules-right {
+    margin-right: 6px;
+    padding: 2px 5px;
+}
+
+/* ------------------------------------------------------------
+ * WORKSPACES
+ * ------------------------------------------------------------ */
+
+#workspaces {
+    padding: 0 2px;
+}
+
+#workspaces button {
+    color: #777777;
+    background: transparent;
+
+    border-radius: 6px;
+
+    padding: 1px 5px;
+    margin: 1px 2px;
+
+    transition:
+        background-color 0.15s,
+        color 0.15s;
+}
+
+/* Active workspace */
+
+#workspaces button.active,
+#workspaces button.focused {
+    color: #000000;
+}
+
+/* Empty workspace */
+
+#workspaces button.empty {
+    color: #444444;
+}
+
+/* Urgent workspace */
+
+#workspaces button.urgent {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* ------------------------------------------------------------
+ * GENERAL MODULES
+ * ------------------------------------------------------------ */
 
 #clock,
 #battery,
@@ -50,37 +104,161 @@ window#waybar {
 #custom-media,
 #tray,
 #mode,
-#custom-power,
-
-#idle_inhibitor {
-    padding: 0 10px;
+#idle_inhibitor,
+#custom-power {
+    padding: 0 9px;
 }
-#mode {
-    color: #160606;
+
+/* ------------------------------------------------------------
+ * CLOCK
+ * ------------------------------------------------------------ */
+
+#clock {
+    color: #ffffff;
     font-weight: bold;
 }
-#custom-power {
-    background-color: rgba(7, 0, 15, 0.945);
-    border-radius: 50px;
-    margin: 5px 5px;
-    padding: 1px 3px;
+
+/* ------------------------------------------------------------
+ * SYSTEM INFORMATION
+ * ------------------------------------------------------------ */
+
+#cpu,
+#memory,
+#temperature {
+    color: #bdbdbd;
 }
-/*-----Indicators----*/
+
+/* ------------------------------------------------------------
+ * NETWORK
+ * ------------------------------------------------------------ */
+
+#network {
+    color: #d0d0d0;
+}
+
+#network.disconnected {
+    color: #666666;
+}
+
+/* ------------------------------------------------------------
+ * AUDIO
+ * ------------------------------------------------------------ */
+
+#pulseaudio {
+    color: #d0d0d0;
+}
+
+#pulseaudio.muted {
+    color: #666666;
+}
+
+/* ------------------------------------------------------------
+ * BATTERY
+ * ------------------------------------------------------------ */
+
+#battery {
+    color: #d0d0d0;
+}
+
+#battery.charging {
+    color: #ffffff;
+}
+
+#battery.warning:not(.charging) {
+    color: #999999;
+}
+
+#battery.critical:not(.charging) {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* ------------------------------------------------------------
+ * TEMPERATURE
+ * ------------------------------------------------------------ */
+
+#temperature.critical {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* ------------------------------------------------------------
+ * IDLE INHIBITOR
+ * ------------------------------------------------------------ */
+
+#idle_inhibitor {
+    color: #777777;
+}
+
 #idle_inhibitor.activated {
     color: #ffffff;
 }
-#pulseaudio.muted {
-    color: #777777;
+
+/* ------------------------------------------------------------
+ * TRAY
+ * ------------------------------------------------------------ */
+
+#tray {
+    padding: 0 8px;
 }
-#battery.charging {
-    color: #a8ff76;
+
+/* ------------------------------------------------------------
+ * MODE
+ * ------------------------------------------------------------ */
+
+#mode {
+    color: #ffffff;
+    font-weight: bold;
 }
-#battery.warning:not(.charging) {
-	color: #a5a511;
+
+/* ------------------------------------------------------------
+ * POWER BUTTON
+ * ------------------------------------------------------------ */
+
+#custom-power {
+    background-color: #ffffff;
+    color: #000000;
+
+    border-radius: 100%;
+
+    margin: 3px 3px;
+    padding: 5px 12px;
+    padding-left: 10px;
+
+    font-weight: bold;
 }
-#battery.critical:not(.charging) {
-    color: #cc3436;
+
+#custom-power:hover {
+    background-color: #d0d0d0;
 }
-#temperature.critical {
-    color: #cc3436;
+
+/* ------------------------------------------------------------
+ * TOOLTIP
+ * ------------------------------------------------------------ */
+
+tooltip {
+    background-color: rgba(8, 8, 8, 0.97);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+
+    padding: 6px;
+}
+
+tooltip label {
+    color: #ffffff;
+}
+
+/* ------------------------------------------------------------
+ * ANIMATION
+ * ------------------------------------------------------------ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }

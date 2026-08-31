@@ -1,53 +1,140 @@
+/* ============================================================
+ * W O R M O S
+ * WOFI THEME
+ * Monochrome Cyber / Terminal
+ * ============================================================ */
+
 * {
-  background-color: transparent;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    font-size: 14px;
 }
 
-#entry {
-   border-radius: 5px;
-   padding: 5px;
-   color: #e4e7f5;
-   margin: 0px 4px 0px 4px;
-}
-
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-
-#entry:selected {
-   background-color: rgb(106, 148, 204);
-   color: #323f83;
-   padding: 5px;
-   outline-style: none;
-}
+/* ------------------------------------------------------------
+ * WINDOW
+ * ------------------------------------------------------------ */
 
 #window {
-   color: #323f83;
-   animation-name: fadeIn;
-   animation-duration: 0.4s;
-   background-color: rgb(5, 27, 58);
-   font-size: 14;
+    background-color: rgba(8, 8, 8, 0.97);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+
+    color: #ffffff;
+
+    animation-name: fadeIn;
+    animation-duration: 0.15s;
 }
 
+/* ------------------------------------------------------------
+ * INPUT
+ * ------------------------------------------------------------ */
+
 #input {
-   border: none;
-   color: #a9b8ff;
-   background-color: rgb(14, 60, 119);
-   border-radius: 10px;
-   margin: 5px 5px 5px 5px;
-   padding: 8px;
+    background-color: rgba(255, 255, 255, 0.06);
+
+    color: #ffffff;
+    caret-color: #ffffff;
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+
+    margin: 10px;
+    padding: 9px 12px;
+}
+
+#input:focus {
+    border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+/* ------------------------------------------------------------
+ * BOXES
+ * ------------------------------------------------------------ */
+
+#outer-box {
+    padding: 5px;
 }
 
 #inner-box {
-   background-color: rgb(14, 60, 119);
-   border-radius: 5px;
-   margin: 5px;
-   padding-top: 15px;
-   padding-bottom: 15px;
-   opacity: 0.8;
+    background-color: rgba(255, 255, 255, 0.035);
+
+    border-radius: 8px;
+
+    margin: 0 5px 5px 5px;
+    padding: 8px;
 }
 
-#outer-box {
-   border-radius: 10px;
-   padding: 5px;
+/* ------------------------------------------------------------
+ * ENTRIES
+ * ------------------------------------------------------------ */
+
+#entry {
+    color: #d6d6d6;
+
+    background-color: transparent;
+
+    border-radius: 7px;
+
+    padding: 8px 10px;
+    margin: 2px 0;
+}
+
+/* ------------------------------------------------------------
+ * SELECTED ENTRY
+ * ------------------------------------------------------------ */
+
+#entry:selected {
+    background-color: #ffffff;
+
+    color: #000000;
+
+    border-radius: 7px;
+
+    padding: 8px 10px;
+
+    outline: none;
+}
+
+/* ------------------------------------------------------------
+ * TEXT
+ * ------------------------------------------------------------ */
+
+#text {
+    color: inherit;
+}
+
+#text:selected {
+    color: #000000;
+}
+
+/* ------------------------------------------------------------
+ * SCROLLBAR
+ * ------------------------------------------------------------ */
+
+scrollbar {
+    background-color: transparent;
+}
+
+scrollbar slider {
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius: 5px;
+}
+
+scrollbar slider:hover {
+    background-color: rgba(255, 255, 255, 0.55);
+}
+
+/* ------------------------------------------------------------
+ * ANIMATION
+ * ------------------------------------------------------------ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        margin-top: 8px;
+    }
+
+    to {
+        opacity: 1;
+        margin-top: 0;
+    }
 }

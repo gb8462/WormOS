@@ -69,7 +69,6 @@ REQUIRED_FILES=(
     "$CONFIG_DIR/configs/wofi"
     "$CONFIG_DIR/configs/alacritty.toml"
     "$CONFIG_DIR/configs/waybar"
-    "$CONFIG_DIR/configs/wlogout"
 )
 
 for file in "${REQUIRED_FILES[@]}"; do
@@ -157,14 +156,6 @@ PACKAGES=(
     "noto-fonts-emoji"
     "noto-fonts-cjk"
     "ttf-font-awesome"
-
-    # --------------------------------------------------------
-    # Login manager
-    # --------------------------------------------------------
-
-    "lightdm"
-    "lightdm-slick-greeter"
-    "accountsservice"
 )
 
 sudo pacman -S --needed --noconfirm "${PACKAGES[@]}"
@@ -254,7 +245,6 @@ CONFIGS=(
     "wofi"
     "alacritty.toml"
     "waybar"
-    "wlogout"
 )
 
 for config in "${CONFIGS[@]}"; do
@@ -269,11 +259,26 @@ for config in "${CONFIGS[@]}"; do
 
     if [[ -e "$DEST" ]]; then
 
-        echo "Keeping existing configuration: $DEST"
+        echo "Existing configuration found:"
+        echo "  $DEST"
+
+        echo "Creating backup..."
+        rm -rf "${DEST}.backup"
+        cp -r "$DEST" "${DEST}.backup"
+
+        echo "Backup created:"
+        echo "  ${DEST}.backup"
+
+        echo "Replacing configuration..."
+
+        rm -rf "$DEST"
+        cp -r "$SOURCE" "$DEST"
+
+        echo "Installed: $config"
 
     else
 
-        cp -r "$SOURCE" "$CONFIG_HOME"
+        cp -r "$SOURCE" "$DEST"
 
         echo "Installed: $config"
 
@@ -288,21 +293,26 @@ done
 info "Installing Hyprland configuration..."
 
 HYPR_LUA="$CONFIG_DIR/configs/hypr/hyprland.lua"
+HYPR_DEST="$HYPR_DIR/hyprland.lua"
 
 if [[ -f "$HYPR_LUA" ]]; then
 
-    if [[ -e "$HYPR_DIR/hyprland.lua" ]]; then
+    if [[ -e "$HYPR_DEST" ]]; then
 
-        echo "Hyprland Lua configuration already exists."
-        echo "Keeping existing configuration."
+        echo "Existing hyprland.lua found."
+        echo "Creating backup..."
 
-    else
+        rm -f "${HYPR_DEST}.backup"
+        cp "$HYPR_DEST" "${HYPR_DEST}.backup"
 
-        cp "$HYPR_LUA" "$HYPR_DIR/hyprland.lua"
-
-        echo "Installed hyprland.lua."
+        echo "Backup created:"
+        echo "  ${HYPR_DEST}.backup"
 
     fi
+
+    cp "$HYPR_LUA" "$HYPR_DEST"
+
+    echo "Installed hyprland.lua."
 
 else
 
@@ -319,21 +329,26 @@ fi
 info "Installing Hyprpaper configuration..."
 
 HYPRPAPER_CONFIG="$CONFIG_DIR/configs/hypr/hyprpaper.conf"
+HYPRPAPER_DEST="$HYPR_DIR/hyprpaper.conf"
 
 if [[ -f "$HYPRPAPER_CONFIG" ]]; then
 
-    if [[ -e "$HYPR_DIR/hyprpaper.conf" ]]; then
+    if [[ -e "$HYPRPAPER_DEST" ]]; then
 
-        echo "Hyprpaper configuration already exists."
-        echo "Keeping existing configuration."
+        echo "Existing hyprpaper.conf found."
+        echo "Creating backup..."
 
-    else
+        rm -f "${HYPRPAPER_DEST}.backup"
+        cp "$HYPRPAPER_DEST" "${HYPRPAPER_DEST}.backup"
 
-        cp "$HYPRPAPER_CONFIG" "$HYPR_DIR/hyprpaper.conf"
-
-        echo "Installed hyprpaper.conf."
+        echo "Backup created:"
+        echo "  ${HYPRPAPER_DEST}.backup"
 
     fi
+
+    cp "$HYPRPAPER_CONFIG" "$HYPRPAPER_DEST"
+
+    echo "Installed hyprpaper.conf."
 
 else
 
@@ -400,81 +415,32 @@ fi
 info "Configuring Vim..."
 
 VIM_CONFIG="$CONFIG_DIR/configs/.vimrc"
+VIM_DEST="$HOME/.vimrc"
 
 if [[ -f "$VIM_CONFIG" ]]; then
 
-    if [[ -e "$HOME/.vimrc" ]]; then
+    if [[ -e "$VIM_DEST" ]]; then
 
         echo "Existing .vimrc found."
-        echo "Keeping existing configuration."
+        echo "Creating backup..."
 
-    else
+        rm -f "${VIM_DEST}.backup"
+        cp "$VIM_DEST" "${VIM_DEST}.backup"
 
-        cp "$VIM_CONFIG" "$HOME/.vimrc"
-
-        echo "Installed .vimrc."
+        echo "Backup created:"
+        echo "  ${VIM_DEST}.backup"
 
     fi
+
+    cp "$VIM_CONFIG" "$VIM_DEST"
+
+    echo "Installed .vimrc."
 
 else
 
     warn ".vimrc not found."
 
 fi
-
-# ------------------------------------------------------------
-# LightDM configuration
-# ------------------------------------------------------------
-
-info "Configuring LightDM..."
-
-LIGHTDM_DIR="$CONFIG_DIR/configs/Lightdm"
-
-if [[ -d "$LIGHTDM_DIR" ]]; then
-
-    if [[ -f "$LIGHTDM_DIR/slick-greeter.conf" ]]; then
-
-        sudo cp \
-            "$LIGHTDM_DIR/slick-greeter.conf" \
-            /etc/lightdm/slick-greeter.conf
-
-        echo "Installed slick-greeter.conf."
-
-    else
-
-        warn "slick-greeter.conf not found."
-
-    fi
-
-    if [[ -f "$LIGHTDM_DIR/lightdm.conf" ]]; then
-
-        sudo cp \
-            "$LIGHTDM_DIR/lightdm.conf" \
-            /etc/lightdm/lightdm.conf
-
-        echo "Installed lightdm.conf."
-
-    else
-
-        warn "lightdm.conf not found."
-
-    fi
-
-else
-
-    warn "LightDM configuration directory not found."
-
-fi
-
-# ------------------------------------------------------------
-# Enable LightDM
-# ------------------------------------------------------------
-
-info "Enabling LightDM..."
-
-sudo systemctl enable lightdm.service
-
-echo "LightDM enabled."
 
 # ------------------------------------------------------------
 # Final verification
@@ -490,6 +456,8 @@ COMMANDS=(
     "dolphin"
     "firefox"
     "alacritty"
+    "wlogout"
+    "brave"
     "brightnessctl"
     "playerctl"
 )
@@ -523,6 +491,7 @@ echo "  - Hyprpaper"
 echo "  - Waybar"
 echo "  - Wofi"
 echo "  - Wlogout"
+echo "  - Brave"
 echo "  - Dolphin"
 echo "  - Firefox"
 echo "  - Alacritty"
@@ -531,7 +500,6 @@ echo "  - PipeWire / WirePlumber"
 echo "  - Wayland utilities"
 echo "  - Brightness / media controls"
 echo "  - Fonts"
-echo "  - LightDM"
 echo
 echo "Configured:"
 echo "  - ~/.config/hypr/hyprland.lua"
@@ -541,10 +509,15 @@ echo "  - Wofi"
 echo "  - Wlogout"
 echo "  - Alacritty"
 echo "  - Vim"
-echo "  - LightDM"
+echo
+echo "Backups:"
+echo "  - Existing configurations are saved as .backup"
 echo
 echo "Wallpapers:"
 echo "  - $WALLPAPER_DIR"
+echo
+echo "Login:"
+echo "  - greetd + hyprlogin"
 echo
 echo "============================================================"
 echo
@@ -563,7 +536,6 @@ if [[ "$REBOOT" =~ ^[Yy]$ ]]; then
     reboot
 
 else
-
     echo
     echo "Reboot skipped."
     echo "Please reboot manually when you're ready."
