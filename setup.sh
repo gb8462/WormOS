@@ -506,7 +506,6 @@ echo "  - ~/.config/hypr/hyprland.lua"
 echo "  - ~/.config/hypr/hyprpaper.conf"
 echo "  - Waybar"
 echo "  - Wofi"
-echo "  - Wlogout"
 echo "  - Alacritty"
 echo "  - Vim"
 echo
@@ -515,9 +514,6 @@ echo "  - Existing configurations are saved as .backup"
 echo
 echo "Wallpapers:"
 echo "  - $WALLPAPER_DIR"
-echo
-echo "Login:"
-echo "  - greetd + hyprlogin"
 echo
 echo "============================================================"
 echo
