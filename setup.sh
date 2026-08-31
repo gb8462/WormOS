@@ -364,9 +364,15 @@ info "Installing wallpapers..."
 
 WALLPAPER_SOURCE="$CONFIG_DIR/Wallpapers"
 
-if [[ -d "$WALLPAPER_SOURCE" ]]; then
+# Always create the system wallpaper directory
+if [[ ! -d "$WALLPAPER_DIR" ]]; then
+    echo "Creating wallpaper directory:"
+    echo "  $WALLPAPER_DIR"
 
     sudo mkdir -p "$WALLPAPER_DIR"
+fi
+
+if [[ -d "$WALLPAPER_SOURCE" ]]; then
 
     shopt -s nullglob
 
@@ -375,7 +381,6 @@ if [[ -d "$WALLPAPER_SOURCE" ]]; then
     )
 
     if (( ${#WALLPAPERS[@]} == 0 )); then
-
         warn "No wallpapers found in $WALLPAPER_SOURCE."
 
     else
@@ -403,8 +408,10 @@ if [[ -d "$WALLPAPER_SOURCE" ]]; then
 
 else
 
-    warn "Wallpaper directory not found:"
+    warn "Wallpaper source directory not found:"
     echo "  $WALLPAPER_SOURCE"
+    echo "Wallpaper directory was still created:"
+    echo "  $WALLPAPER_DIR"
 
 fi
 
